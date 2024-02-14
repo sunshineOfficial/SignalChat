@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Repositories\Interfaces\" />
+      <Folder Include="Repositories\Scripts\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Migrations\Resources\0001_Create_users.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0001_Create_users.sql" />
+      <None Remove="Migrations\Resources\0002_Create_contacts.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0002_Create_contacts.sql" />
+      <None Remove="Migrations\Resources\0003_Create_chats.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0003_Create_chats.sql" />
+      <None Remove="Migrations\Resources\0004_Create_chat_participants.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0004_Create_chat_participants.sql" />
+      <None Remove="Migrations\Resources\0005_Create_messages.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0005_Create_messages.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.28" />
+      <PackageReference Include="dbup-postgresql" Version="5.0.40" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>

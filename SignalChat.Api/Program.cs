@@ -7,6 +7,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.MigrateDatabase(builder.Configuration);
+builder.Services.AddDapper();
 
 var app = builder.Build();
 

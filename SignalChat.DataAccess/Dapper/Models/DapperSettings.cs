@@ -1,0 +1,9 @@
+using SignalChat.DataAccess.Dapper.Interfaces;
+
+namespace SignalChat.DataAccess.Dapper.Models;
+
+public class DapperSettings : IDapperSettings
+{
+    public string ConnectionString { get; set; }
+    public Provider Provider { get; set; }
+}

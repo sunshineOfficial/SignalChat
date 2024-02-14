@@ -2,6 +2,9 @@ using SignalChat.DataAccess.Dapper.Interfaces;
 
 namespace SignalChat.DataAccess.Dapper.Models;
 
+/// <summary>
+/// Запрос к БД.
+/// </summary>
 public class QueryObject : IQueryObject
 {
     public QueryObject(string sql, object parameters = null, int commandTimeout = 30)

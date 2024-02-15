@@ -1,3 +1,4 @@
+using SignalChat.Api.Hubs;
 using SignalChat.DataAccess.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,5 +15,6 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

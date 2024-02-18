@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Repositories\Interfaces\" />
-      <Folder Include="Repositories\Scripts\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Migrations\Resources\0001_Create_users.sql" />
       <EmbeddedResource Include="Migrations\Resources\0001_Create_users.sql" />
       <None Remove="Migrations\Resources\0002_Create_contacts.sql" />
@@ -22,6 +17,10 @@
       <EmbeddedResource Include="Migrations\Resources\0004_Create_chat_participants.sql" />
       <None Remove="Migrations\Resources\0005_Create_messages.sql" />
       <EmbeddedResource Include="Migrations\Resources\0005_Create_messages.sql" />
+      <EmbeddedResource Update="Repositories\Scripts\Sql.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Sql.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -29,6 +28,14 @@
       <PackageReference Include="dbup-postgresql" Version="5.0.40" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Repositories\Scripts\Sql.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Sql.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

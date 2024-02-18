@@ -1,11 +1,13 @@
 create table if not exists users
 (
-    id            integer primary key generated always as identity,
-    username      text unique not null,
-    email         text unique not null,
-    name          text,
-    surname       text,
-    password_hash text
+    id                          integer primary key generated always as identity,
+    username                    text unique not null,
+    email                       text unique not null,
+    name                        text,
+    surname                     text,
+    password_hash               text,
+    refresh_token               text,
+    refresh_token_expired_after timestamp
 );
 
 create index user_id_index on users (id);

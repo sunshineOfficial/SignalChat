@@ -14,17 +14,15 @@ public class DapperContext<TSettings> : IDapperContext<TSettings> where TSetting
     private readonly string _connectionString;
     private readonly Provider _provider;
 
-    public DapperContext(IEnumerable<IDapperSettings> settings)
+    public DapperContext(IDapperSettings settings)
     {
-        var database = settings.FirstOrDefault(x => x.GetType() == typeof(TSettings));
-
-        if (database == null)
+        if (settings == null)
         {
             throw new ArgumentException();
         }
         
-        _connectionString = database.ConnectionString;
-        _provider = database.Provider;
+        _connectionString = settings.ConnectionString;
+        _provider = settings.Provider;
     }
     
     public async Task<T> FirstOrDefault<T>(IQueryObject queryObject)

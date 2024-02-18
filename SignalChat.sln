@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalChat.Services", "Sign
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalChat.Tests", "SignalChat.Tests\SignalChat.Tests.csproj", "{98547D39-DD94-4A84-86BD-DE2974D9506A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalChat.Common", "SignalChat.Common\SignalChat.Common.csproj", "{310E84BC-56B4-4D80-9C47-54871B0EA32C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{98547D39-DD94-4A84-86BD-DE2974D9506A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98547D39-DD94-4A84-86BD-DE2974D9506A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98547D39-DD94-4A84-86BD-DE2974D9506A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310E84BC-56B4-4D80-9C47-54871B0EA32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310E84BC-56B4-4D80-9C47-54871B0EA32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310E84BC-56B4-4D80-9C47-54871B0EA32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310E84BC-56B4-4D80-9C47-54871B0EA32C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

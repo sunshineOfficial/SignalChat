@@ -34,4 +34,14 @@ public class DbUser
     /// Хешированный пароль.
     /// </summary>
     public string PasswordHash { get; set; }
+
+    /// <summary>
+    /// Токен для обновления AccessToken.
+    /// </summary>
+    public string RefreshToken { get; set; }
+
+    /// <summary>
+    /// Время истечения <see cref="RefreshToken"/>.
+    /// </summary>
+    public DateTime RefreshTokenExpiredAfter { get; set; }
 }

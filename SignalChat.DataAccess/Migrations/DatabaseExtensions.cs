@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SignalChat.DataAccess.Dapper;
 using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models.Settings;
+using SignalChat.DataAccess.Repositories;
+using SignalChat.DataAccess.Repositories.Interfaces;
 
 namespace SignalChat.DataAccess.Migrations;
 
@@ -51,5 +53,16 @@ public static class DatabaseExtensions
         return services
             .AddSingleton<IDapperSettings, SignalChatDatabase>()
             .AddSingleton<IDapperContext<IDapperSettings>, DapperContext<IDapperSettings>>();
+    }
+
+    /// <summary>
+    /// Добавляет репозитории.
+    /// </summary>
+    /// <param name="services"><see cref="IServiceCollection"/>.</param>
+    /// <returns><see cref="IServiceCollection"/>.</returns>
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUserRepository, UserRepository>();
     }
 }

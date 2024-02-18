@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SignalChat.DataAccess.Dapper;
 using SignalChat.DataAccess.Dapper.Interfaces;
-using SignalChat.DataAccess.Dapper.Models;
+using SignalChat.DataAccess.Models.Settings;
 
 namespace SignalChat.DataAccess.Migrations;
 
@@ -49,7 +49,7 @@ public static class DatabaseExtensions
     public static IServiceCollection AddDapper(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IDapperSettings, DapperSettings>()
+            .AddSingleton<IDapperSettings, SignalChatDatabase>()
             .AddSingleton<IDapperContext<IDapperSettings>, DapperContext<IDapperSettings>>();
     }
 }

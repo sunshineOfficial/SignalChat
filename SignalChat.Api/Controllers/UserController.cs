@@ -53,4 +53,15 @@ public class UserController(IUserService userService) : BaseController
         
         return Ok();
     }
+
+    /// <summary>
+    /// Удаляет текущего пользователя.
+    /// </summary>
+    [HttpDelete("me")]
+    public async Task<IActionResult> DeleteMe()
+    {
+        await userService.DeleteUser(Id);
+        
+        return Ok();
+    }
 }

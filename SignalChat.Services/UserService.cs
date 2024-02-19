@@ -48,4 +48,14 @@ public class UserService(IUserRepository userRepository) : IUserService
 
         await userRepository.UpdateUser(user.MapToDb());
     }
+
+    public async Task DeleteUser(int id)
+    {
+        if (!await userRepository.IsUserExistsById(id))
+        {
+            throw new UserNotFoundException(id);
+        }
+
+        await userRepository.DeleteUser(id);
+    }
 }

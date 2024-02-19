@@ -36,6 +36,13 @@ public interface IUserRepository
     Task<int> CreateUser(DbUser user);
 
     /// <summary>
+    /// Получает пользователя по id.
+    /// </summary>
+    /// <param name="id">Id пользователя.</param>
+    /// <returns>Пользователь или null, если пользователь с указанными данными не найден.</returns>
+    Task<DbUser> GetUser(int id);
+
+    /// <summary>
     /// Получает пользователя по его почте и паролю.
     /// </summary>
     /// <param name="email">Почта пользователя.</param>

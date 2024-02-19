@@ -95,9 +95,27 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         ///where email = @email
         ///  and password_hash = @passwordHash;.
         /// </summary>
-        internal static string GetUser {
+        internal static string GetUserByEmailAndPassword {
             get {
-                return ResourceManager.GetString("GetUser", resourceCulture);
+                return ResourceManager.GetString("GetUserByEmailAndPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на select id                          as Id,
+        ///       username                    as Username,
+        ///       email                       as Email,
+        ///       name                        as Name,
+        ///       surname                     as Surname,
+        ///       password_hash               as PasswordHash,
+        ///       refresh_token               as RefreshToken,
+        ///       refresh_token_expired_after as RefreshTokenExpiredAfter
+        ///from users
+        ///where id = @id;.
+        /// </summary>
+        internal static string GetUserById {
+            get {
+                return ResourceManager.GetString("GetUserById", resourceCulture);
             }
         }
         

@@ -17,6 +17,7 @@ public static class ServicesExtensions
     {
         return services
             .AddScoped<ITokenService, TokenService>()
-            .AddScoped<IAuthService, AuthService>();
+            .AddScoped<IAuthService, AuthService>()
+            .AddScoped<IUserService, UserService>();
     }
 }

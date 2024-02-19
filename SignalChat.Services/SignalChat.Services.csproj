@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Mappers\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\SignalChat.Common\SignalChat.Common.csproj" />
       <ProjectReference Include="..\SignalChat.DataAccess\SignalChat.DataAccess.csproj" />
       <ProjectReference Include="..\SignalChat.Models\SignalChat.Models.csproj" />

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SignalChat.Models.User;
 using SignalChat.Services.Interfaces;
 
 namespace SignalChat.Api.Controllers;
@@ -38,5 +39,18 @@ public class UserController(IUserService userService) : BaseController
     public async Task<IActionResult> GetUsers()
     {
         return Ok(await userService.GetUsers());
+    }
+
+    /// <summary>
+    /// Обновляет информацию о текущем пользователе.
+    /// </summary>
+    /// <param name="user">Новая информация о текущем пользователе.</param>
+    [HttpPut("me")]
+    public async Task<IActionResult> UpdateMe(User user)
+    {
+        user.Id = Id;
+        await userService.UpdateUser(user);
+        
+        return Ok();
     }
 }

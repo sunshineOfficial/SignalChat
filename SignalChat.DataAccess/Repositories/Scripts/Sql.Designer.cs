@@ -168,6 +168,17 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         /// <summary>
         ///   Ищет локализованную строку, похожую на select exists(select id
         ///              from users
+        ///              where id = @id);.
+        /// </summary>
+        internal static string IsUserExistsById {
+            get {
+                return ResourceManager.GetString("IsUserExistsById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на select exists(select id
+        ///              from users
         ///              where username = @username);.
         /// </summary>
         internal static string IsUserExistsByUsername {
@@ -185,6 +196,21 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         internal static string UpdateRefreshToken {
             get {
                 return ResourceManager.GetString("UpdateRefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на update users
+        ///set
+        ///    username = case when @Username is null then name else @Username end,
+        ///    email = case when @Email is null then email else @Email end,
+        ///    name = case when @Name is null then name else @Name end,
+        ///    surname = case when @Surname is null then surname else @Surname end
+        ///where id = @Id;.
+        /// </summary>
+        internal static string UpdateUser {
+            get {
+                return ResourceManager.GetString("UpdateUser", resourceCulture);
             }
         }
     }

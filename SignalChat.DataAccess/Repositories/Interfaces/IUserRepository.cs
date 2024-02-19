@@ -13,6 +13,13 @@ public interface IUserRepository
     /// </summary>
     /// <returns>Транзакция.</returns>
     Transaction BeginTransaction();
+    
+    /// <summary>
+    /// Проверяет, существует ли пользователь с данным id.
+    /// </summary>
+    /// <param name="id">Id пользователя.</param>
+    /// <returns>True, если пользователь существует, иначе - False.</returns>
+    Task<bool> IsUserExistsById(int id);
 
     /// <summary>
     /// Проверяет, существует ли пользователь с данным логином.
@@ -70,6 +77,12 @@ public interface IUserRepository
     /// <param name="refreshToken">Токен для обновления AccessToken.</param>
     /// <param name="refreshTokenExpiredAfter">Время истечения RefreshToken.</param>
     Task UpdateRefreshToken(int id, string refreshToken, DateTime refreshTokenExpiredAfter);
+
+    /// <summary>
+    /// Обновляет информацию о пользователе.
+    /// </summary>
+    /// <param name="user">Новая информация о пользователе.</param>
+    Task UpdateUser(DbUser user);
 
     /// <summary>
     /// Удаляет пользователя.

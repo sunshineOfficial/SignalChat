@@ -19,4 +19,10 @@ public interface IUserService
     /// </summary>
     /// <returns>Список <see cref="User"/>.</returns>
     Task<List<User>> GetUsers();
+
+    /// <summary>
+    /// Обновляет информацию о пользователе.
+    /// </summary>
+    /// <param name="user">Новая информация о пользователе.</param>
+    Task UpdateUser(User user);
 }

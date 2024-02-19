@@ -2,7 +2,6 @@ using SignalChat.DataAccess.Dapper;
 using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Dapper.Models;
 using SignalChat.DataAccess.Models;
-using SignalChat.DataAccess.Models.Settings;
 using SignalChat.DataAccess.Repositories.Interfaces;
 using SignalChat.DataAccess.Repositories.Scripts;
 
@@ -46,6 +45,11 @@ public class UserRepository(IDapperContext<IDapperSettings> dapperContext) : IUs
     public async Task<DbUser> GetUserByRefreshToken(string refreshToken)
     {
         return await dapperContext.FirstOrDefault<DbUser>(new QueryObject(Sql.GetUserByRefreshToken, new { refreshToken }));
+    }
+
+    public async Task<List<DbUser>> GetUsers()
+    {
+        return await dapperContext.ListOrEmpty<DbUser>(new QueryObject(Sql.GetUsers));
     }
 
     public async Task UpdateRefreshToken(int id, string refreshToken, DateTime refreshTokenExpiredAfter)

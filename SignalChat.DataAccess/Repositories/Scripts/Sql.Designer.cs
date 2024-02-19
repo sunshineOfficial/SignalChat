@@ -138,6 +138,23 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на select id                          as Id,
+        ///       username                    as Username,
+        ///       email                       as Email,
+        ///       name                        as Name,
+        ///       surname                     as Surname,
+        ///       password_hash               as PasswordHash,
+        ///       refresh_token               as RefreshToken,
+        ///       refresh_token_expired_after as RefreshTokenExpiredAfter
+        ///from users;.
+        /// </summary>
+        internal static string GetUsers {
+            get {
+                return ResourceManager.GetString("GetUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на select exists(select id
         ///              from users
         ///              where email = @email);.

@@ -29,4 +29,14 @@ public class UserController(IUserService userService) : BaseController
     {
         return Ok(await userService.GetUser(id));
     }
+
+    /// <summary>
+    /// Получает список всех пользователей.
+    /// </summary>
+    /// <returns>Список всех пользователей.</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetUsers()
+    {
+        return Ok(await userService.GetUsers());
+    }
 }

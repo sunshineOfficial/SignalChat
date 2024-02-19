@@ -58,6 +58,12 @@ public interface IUserRepository
     Task<DbUser> GetUserByRefreshToken(string refreshToken);
 
     /// <summary>
+    /// Получает список всех пользователей.
+    /// </summary>
+    /// <returns>Список <see cref="DbUser"/>.</returns>
+    Task<List<DbUser>> GetUsers();
+
+    /// <summary>
     /// Обновляет RefreshToken.
     /// </summary>
     /// <param name="id">Id пользователя.</param>

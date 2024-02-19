@@ -133,6 +133,9 @@
   <data name="GetUserByRefreshToken" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>GetUserByRefreshToken.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="GetUsers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>GetUsers.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="IsUserExistsByEmail" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IsUserExistsByEmail.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>

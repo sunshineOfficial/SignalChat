@@ -26,4 +26,9 @@ public static class UserMapper
                 Surname = source.Surname
             };
     }
+
+    public static List<User> MapToDomain(this List<DbUser> source)
+    {
+        return source == null ? [] : source.Select(x => x.MapToDomain()).ToList();
+    }
 }

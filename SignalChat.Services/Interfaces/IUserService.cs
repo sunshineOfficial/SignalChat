@@ -13,4 +13,10 @@ public interface IUserService
     /// <param name="id">Id пользователя.</param>
     /// <returns><see cref="User"/>.</returns>
     Task<User> GetUser(int id);
+
+    /// <summary>
+    /// Получает список всех пользователей.
+    /// </summary>
+    /// <returns>Список <see cref="User"/>.</returns>
+    Task<List<User>> GetUsers();
 }

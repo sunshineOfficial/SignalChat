@@ -21,4 +21,11 @@ public class UserService(IUserRepository userRepository) : IUserService
 
         return user.MapToDomain();
     }
+
+    public async Task<List<User>> GetUsers()
+    {
+        var users = await userRepository.GetUsers();
+
+        return users.MapToDomain();
+    }
 }

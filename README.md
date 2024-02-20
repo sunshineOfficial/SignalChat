@@ -17,7 +17,7 @@ git clone https://github.com/sunshineOfficial/SignalChat.git
 2. Устанавливаем [Docker](https://www.docker.com/products/docker-desktop/)
 3. Запускаем [build.sh](build.sh)
 4. Открываем [Swagger](http://localhost/swagger/index.html)
-5. Для взаимодействия с хабами SignalR по WebSockets устанавливаем [Postman](https://www.postman.com) и создаем свою WebSocket коллекцию
+5. Для взаимодействия с хабами SignalR по WebSocket устанавливаем [Postman](https://www.postman.com) и создаем свою WebSocket коллекцию
 
 ## Пример работы с ChatHub
 
@@ -30,6 +30,7 @@ git clone https://github.com/sunshineOfficial/SignalChat.git
 }
 ```
 **НЕ ЗАБЫВАЕМ СПЕЦИАЛЬНЫЙ СИМВОЛ ОКОНЧАНИЯ СООБЩЕНИЯ**
+
 3. Отправляем запросы к хабу. Например:
 ```json
 {

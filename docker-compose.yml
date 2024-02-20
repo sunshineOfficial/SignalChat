@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  signalchat.api:
+    image: signal-chat
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+      - "443:443"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - postgres
+  
+  db:
+    image: postgres
+    volumes:
+      - db-data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: "signal_chat"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1"
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  db-data:

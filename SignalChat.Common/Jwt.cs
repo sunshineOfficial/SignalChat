@@ -63,7 +63,10 @@ public static class Jwt
     /// <returns>Значение роли.</returns>
     private static string ParseToken(string token, string role)
     {
-        token = token.Split(' ')[1]; // убираем Bearer из токена
+        if (token.Contains("Bearer "))
+        {
+            token = token.Split(' ')[1]; // убираем Bearer из токена
+        }
         var handler = new JwtSecurityTokenHandler();
         var payload = handler.ReadJwtToken(token).Payload;
 

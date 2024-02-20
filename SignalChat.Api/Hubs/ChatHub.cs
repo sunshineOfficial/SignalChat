@@ -5,9 +5,6 @@ namespace SignalChat.Api.Hubs;
 /// <summary>
 /// Хаб чатов.
 /// </summary>
-public class ChatHub : Hub
+public class ChatHub : BaseHub
 {
-    public ChatHub()
-    {
-    }
 }

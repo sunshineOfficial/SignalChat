@@ -81,6 +81,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 }
 
                 return Task.CompletedTask;
+            },
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                
+                // если запрос идет в хаб
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chathub"))
+                {
+                    // читаем токен из строки запроса
+                    context.Token = accessToken;
+                }
+                
+                return Task.CompletedTask;
             }
         };
     });

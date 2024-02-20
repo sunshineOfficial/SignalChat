@@ -8,12 +8,12 @@ using SignalChat.DataAccess.Models.Settings;
 using SignalChat.DataAccess.Repositories;
 using SignalChat.DataAccess.Repositories.Interfaces;
 
-namespace SignalChat.DataAccess.Migrations;
+namespace SignalChat.DataAccess.Extensions;
 
 /// <summary>
-/// Класс с методами расширения для добавления функциональности базы данных.
+/// Класс с методами расширения для добавления функциональности слоя доступа к данным.
 /// </summary>
-public static class DatabaseExtensions
+public static class DataAccessExtensions
 {
     /// <summary>
     /// Выполняет миграцию базы данных.

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SignalChat.Services.Interfaces;
 
-namespace SignalChat.Services;
+namespace SignalChat.Services.Extensions;
 
 /// <summary>
 /// Класс с методами расширения для добавления функциональности сервисного слоя.

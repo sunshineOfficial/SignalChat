@@ -54,4 +54,15 @@ public class ConnectionTracker : IConnectionTracker
             }
         }
     }
+
+    public IEnumerable<string> SelectConnectionIds(IEnumerable<int> userIds)
+    {
+        foreach (var userId in userIds)
+        {
+            if (_connectedUsers.Values.Contains(userId))
+            {
+                yield return _connectedUsers.FirstOrDefault(x => x.Value == userId).Key;
+            }
+        }
+    }
 }

@@ -63,6 +63,8 @@ public static class DatabaseExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         return services
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IChatRepository, ChatRepository>()
+            .AddScoped<IChatParticipantRepository, ChatParticipantRepository>();
     }
 }

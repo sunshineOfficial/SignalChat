@@ -52,4 +52,11 @@ public interface IConnectionTracker
     /// <param name="idGetter">Делегат, получающий Id пользователя из экземпляра типа <typeparamref name="TUser"/>.</param>
     /// <returns>Перечисление с подключенными пользователями.</returns>
     IEnumerable<TUser> SelectConnectedUsers<TUser>(IEnumerable<TUser> users, Func<TUser, int> idGetter);
+
+    /// <summary>
+    /// Отбирает из указанного перечисления Id подключения, соответствующие подключенным пользователям.
+    /// </summary>
+    /// <param name="userIds">Перечисление Id пользователей.</param>
+    /// <returns>Перечисление с Id подключений пользователей, входящих в <paramref name="userIds"/>.</returns>
+    IEnumerable<string> SelectConnectionIds(IEnumerable<int> userIds);
 }

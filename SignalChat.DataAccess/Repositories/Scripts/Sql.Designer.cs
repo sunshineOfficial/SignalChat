@@ -61,6 +61,27 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на insert into chats (name, creator_id)
+        ///values (@Name, @CreatorId)
+        ///returning id;.
+        /// </summary>
+        internal static string CreateChat {
+            get {
+                return ResourceManager.GetString("CreateChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на insert into chat_participants (creator_id, chat_id, role)
+        ///values (@CreatorId, @ChatId, @Role);.
+        /// </summary>
+        internal static string CreateChatParticipant {
+            get {
+                return ResourceManager.GetString("CreateChatParticipant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на insert into users (username, email, name, surname, password_hash, refresh_token, refresh_token_expired_after)
         ///values (@Username, @Email, @Name, @Surname, @PasswordHash, @RefreshToken, @RefreshTokenExpiredAfter)
         ///returning id;.

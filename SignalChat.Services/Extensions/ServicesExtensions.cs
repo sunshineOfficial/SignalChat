@@ -20,6 +20,7 @@ public static class ServicesExtensions
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<IUserService, UserService>()
             .AddSingleton<IConnectionTracker, ConnectionTracker>()
-            .AddScoped<IChatService, ChatService>();
+            .AddScoped<IChatService, ChatService>()
+            .AddScoped<IMessageService, MessageService>();
     }
 }

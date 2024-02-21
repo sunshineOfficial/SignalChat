@@ -4,7 +4,7 @@ using SignalChat.DataAccess.Models;
 namespace SignalChat.DataAccess.Repositories.Interfaces;
 
 /// <summary>
-/// Интерфейс для репозитория пользователей.
+/// Интерфейс репозитория пользователей.
 /// </summary>
 public interface IUserRepository
 {

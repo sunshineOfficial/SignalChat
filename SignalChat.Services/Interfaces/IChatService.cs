@@ -10,7 +10,7 @@ public interface IChatService
     /// <summary>
     /// Создает новый чат.
     /// </summary>
-    /// <param name="chat">Новый чат.</param>
+    /// <param name="request">Новый чат.</param>
     /// <returns>Id нового чата.</returns>
-    Task<int> CreateChat(Chat chat);
+    Task<Chat> CreateChat(CreateChatRequest request);
 }

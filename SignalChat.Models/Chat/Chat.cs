@@ -6,6 +6,11 @@ namespace SignalChat.Models.Chat;
 public class Chat
 {
     /// <summary>
+    /// Id чата.
+    /// </summary>
+    public int Id { get; set; }
+    
+    /// <summary>
     /// Название чата.
     /// </summary>
     public string Name { get; set; }
@@ -14,9 +19,4 @@ public class Chat
     /// Id создателя чата.
     /// </summary>
     public int CreatorId { get; set; }
-
-    /// <summary>
-    /// Id пользователей, которых нужно добавить в чат.
-    /// </summary>
-    public List<int> UserIds { get; set; }
 }

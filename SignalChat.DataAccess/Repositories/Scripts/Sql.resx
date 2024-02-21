@@ -121,8 +121,17 @@
   <data name="CreateChat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Chat\CreateChat.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="IsChatExists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Chat\IsChatExists.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="CreateChatParticipant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ChatParticipant\CreateChatParticipant.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="IsChatParticipantExists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ChatParticipant\IsChatParticipantExists.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="CreateMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Message\CreateMessage.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="CreateUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>User\CreateUser.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>

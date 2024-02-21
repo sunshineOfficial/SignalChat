@@ -13,10 +13,10 @@ namespace SignalChat.Services;
 /// </summary>
 public class ChatService(IChatRepository chatRepository, IUserRepository userRepository, IChatParticipantRepository chatParticipantRepository) : IChatService
 {
-    public async Task<int> CreateChat(Chat chat)
+    public async Task<Chat> CreateChat(CreateChatRequest request)
     {
-        chat.UserIds.Add(chat.CreatorId);
-        foreach (var id in chat.UserIds)
+        request.UserIds.Add(request.CreatorId);
+        foreach (var id in request.UserIds)
         {
             if (!await userRepository.IsUserExistsById(id))
             {
@@ -28,18 +28,20 @@ public class ChatService(IChatRepository chatRepository, IUserRepository userRep
         using var transaction = chatRepository.BeginTransaction();
         try
         {
-            var chatId = await chatRepository.CreateChat(chat.MapToDb(), transaction);
-            var chatParticipants = chat.UserIds.Select(id => new DbChatParticipant
+            var dbChat = request.MapToDb();
+            var chatId = await chatRepository.CreateChat(request.MapToDb(), transaction);
+            var chatParticipants = request.UserIds.Select(id => new DbChatParticipant
             {
                 UserId = id,
                 ChatId = chatId,
-                Role = (int)(id == chat.CreatorId ? ChatRole.Creator : ChatRole.User)
+                Role = (int)(id == request.CreatorId ? ChatRole.Creator : ChatRole.User)
             }).ToList();
             await chatParticipantRepository.CreateChatParticipants(chatParticipants, transaction);
 
             transaction.Commit();
+            dbChat.Id = chatId;
 
-            return chatId;
+            return dbChat.MapToDomain();
         }
         catch (Exception)
         {

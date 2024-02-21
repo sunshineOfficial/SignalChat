@@ -4,7 +4,7 @@ using SignalChat.DataAccess.Models;
 namespace SignalChat.DataAccess.Repositories.Interfaces;
 
 /// <summary>
-/// Интерфейс для репозитория чатов.
+/// Интерфейс репозитория чатов.
 /// </summary>
 public interface IChatRepository
 {
@@ -21,4 +21,11 @@ public interface IChatRepository
     /// <param name="transaction">Транзакция.</param>
     /// <returns>Id нового чата.</returns>
     Task<int> CreateChat(DbChat chat, Transaction transaction = null);
+
+    /// <summary>
+    /// Проверяет, существует ли чат с данным id.
+    /// </summary>
+    /// <param name="id">Id чата.</param>
+    /// <returns>True, если чат существует, иначе - False.</returns>
+    Task<bool> IsChatExists(int id);
 }

@@ -26,4 +26,9 @@ public class ChatParticipantRepository(IDapperContext<IDapperSettings> dapperCon
     {
         await dapperContext.Command(new QueryObject(Sql.CreateChatParticipant, chatParticipants), transaction);
     }
+
+    public async Task<bool> IsChatParticipantExists(int userId, int chatId)
+    {
+        return await dapperContext.FirstOrDefault<bool>(new QueryObject(Sql.IsChatParticipantExists, new { userId, chatId }));
+    }
 }

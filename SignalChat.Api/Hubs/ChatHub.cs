@@ -8,7 +8,7 @@ namespace SignalChat.Api.Hubs;
 /// <summary>
 /// Хаб чатов.
 /// </summary>
-public class ChatHub(IConnectionTracker connectionTracker, IChatService chatService, IMessageService messageService) : BaseHub
+public class ChatHub(IConnectionTracker connectionTracker, IChatService chatService, IMessageService messageService, IChatParticipantService chatParticipantService) : BaseHub
 {
     /// <summary>
     /// Создает новый чат.
@@ -21,8 +21,8 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
 
         // добавляем всех подключенных пользователей в группу чата
         var addToGroupTasks = new List<Task> { Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chat.Id}") };
-        addToGroupTasks.AddRange(connectionTracker.SelectConnectionIds(request.UserIds)
-            .Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}")));
+        var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds);
+        addToGroupTasks.AddRange(connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}")));
         await Task.WhenAll(addToGroupTasks);
 
         await Clients.Caller.SendAsync("ChatCreated", chat);
@@ -40,18 +40,23 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
         await Clients.Group($"Chat{message.ChatId}").SendAsync("ReceiveMessage", message);
     }
     
-    public override Task OnConnectedAsync()
+    public override async Task OnConnectedAsync()
     {
         connectionTracker.TrackConnection(Context.ConnectionId, Id);
-        // TODO: Добавлять в группы новые подключения
-        
-        return base.OnConnectedAsync();
+
+        // подключаемся к группам чатов, в которых мы есть
+        var chatParticipants = await chatParticipantService.GetChatParticipantsByUserId(Id);
+        var chatIds = chatParticipants.Select(x => x.ChatId);
+        var addToGroupTasks = chatIds.Select(chatId => Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chatId}"));
+        await Task.WhenAll(addToGroupTasks);
+
+        await base.OnConnectedAsync();
     }
 
-    public override Task OnDisconnectedAsync(Exception exception)
+    public override async Task OnDisconnectedAsync(Exception exception)
     {
         connectionTracker.UntrackConnection(Context.ConnectionId);
         
-        return base.OnDisconnectedAsync(exception);
+        await base.OnDisconnectedAsync(exception);
     }
 }

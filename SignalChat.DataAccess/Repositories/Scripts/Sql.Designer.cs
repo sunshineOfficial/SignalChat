@@ -81,6 +81,12 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
             }
         }
         
+        internal static string GetMessagesByChat {
+            get {
+                return ResourceManager.GetString("GetMessagesByChat", resourceCulture);
+            }
+        }
+        
         internal static string CreateUser {
             get {
                 return ResourceManager.GetString("CreateUser", resourceCulture);

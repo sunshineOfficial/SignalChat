@@ -44,4 +44,14 @@ public static class MessageMapper
                 UserId = source.UserId
             };
     }
+    
+    /// <summary>
+    /// Маппит список <see cref="DbMessage"/> на список <see cref="Message"/>.
+    /// </summary>
+    /// <param name="source">Список <see cref="DbMessage"/>.</param>
+    /// <returns>Список <see cref="Message"/>.</returns>
+    public static List<Message> MapToDomain(this List<DbMessage> source)
+    {
+        return source == null ? [] : source.Select(x => x.MapToDomain()).ToList();
+    }
 }

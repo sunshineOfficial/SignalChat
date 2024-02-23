@@ -29,4 +29,21 @@ public class MessageService(IMessageRepository messageRepository, IChatRepositor
 
         return dbMessage.MapToDomain();
     }
+
+    public async Task<List<Message>> GetMessagesByChat(int userId, int chatId, DateTime from)
+    {
+        if (!await chatRepository.IsChatExists(chatId))
+        {
+            throw new ChatNotFoundException(chatId);
+        }
+        
+        if (!await chatParticipantRepository.IsChatParticipantExists(userId, chatId))
+        {
+            throw new ChatParticipantNotFoundException(userId, chatId);
+        }
+
+        var dbMessages = await messageRepository.GetMessagesByChat(chatId, from);
+
+        return dbMessages.MapToDomain();
+    }
 }

@@ -21,4 +21,9 @@ public class MessageRepository(IDapperContext<IDapperSettings> dapperContext) : 
     {
         return await dapperContext.CommandWithResponse<int>(new QueryObject(Sql.CreateMessage, message));
     }
+
+    public async Task<List<DbMessage>> GetMessagesByChat(int chatId, DateTime from)
+    {
+        return await dapperContext.ListOrEmpty<DbMessage>(new QueryObject(Sql.GetMessagesByChat, new { chatId, from }));
+    }
 }

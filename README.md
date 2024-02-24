@@ -7,6 +7,7 @@
 * Docker
 * PostgreSQL
 * Swagger
+* xUnit
 
 ## Установка и запуск
 

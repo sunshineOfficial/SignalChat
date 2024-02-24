@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 using SignalChat.Models.Chat;
 using SignalChat.Models.Message;
-using SignalChat.Services.Exceptions;
 using SignalChat.Services.Interfaces;
 
 namespace SignalChat.Api.Hubs;

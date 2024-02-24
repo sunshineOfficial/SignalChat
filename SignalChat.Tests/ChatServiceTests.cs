@@ -42,9 +42,6 @@ public class ChatServiceTests
     /// <summary>
     /// Проверяет, что при невалидном Id создателя чата выбрасывается исключение.
     /// </summary>
-    /// <param name="userRepositoryMock"></param>
-    /// <param name="request"></param>
-    /// <param name="chatService"></param>
     [Theory, AutoMoqData]
     public async Task CreateChat_InvalidCreatorId_ThrowsException(
         [Frozen] Mock<IUserRepository> userRepositoryMock,
@@ -64,9 +61,6 @@ public class ChatServiceTests
     /// <summary>
     /// Проверяет, что при невалидном Id участника чата выбрасывается исключение.
     /// </summary>
-    /// <param name="userRepositoryMock"></param>
-    /// <param name="request"></param>
-    /// <param name="chatService"></param>
     [Theory, AutoMoqData]
     public async Task CreateChat_InvalidUserId_ThrowsException(
         [Frozen] Mock<IUserRepository> userRepositoryMock,

@@ -27,7 +27,7 @@ public interface IDapperContext<TSettings> where TSettings : IDapperSettings
     /// </summary>
     /// <param name="queryObject"><see cref="IQueryObject"/>.</param>
     /// <param name="transaction">Транзакция, которую нужно использовать при запросе.</param>
-    Task Command(IQueryObject queryObject, Transaction transaction = null);
+    Task Command(IQueryObject queryObject, ITransaction transaction = null);
     
     /// <summary>
     /// Выполняет запрос в БД, возвращает ответ и использует транзакцию, если требуется.
@@ -36,11 +36,11 @@ public interface IDapperContext<TSettings> where TSettings : IDapperSettings
     /// <param name="transaction">Транзакция, которую нужно использовать при запросе.</param>
     /// <typeparam name="T">Тип ответа.</typeparam>
     /// <returns>Ответ, который нужно получить после выполнения команды.</returns>
-    Task<T> CommandWithResponse<T>(IQueryObject queryObject, Transaction transaction = null);
+    Task<T> CommandWithResponse<T>(IQueryObject queryObject, ITransaction transaction = null);
     
     /// <summary>
     /// Начинает транзакцию.
     /// </summary>
-    /// <returns><see cref="Transaction"/>.</returns>
-    Transaction BeginTransaction();
+    /// <returns><see cref="ITransaction"/>.</returns>
+    ITransaction BeginTransaction();
 }

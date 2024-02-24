@@ -1,4 +1,4 @@
-using SignalChat.DataAccess.Dapper;
+using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models;
 
 namespace SignalChat.DataAccess.Repositories.Interfaces;
@@ -12,7 +12,7 @@ public interface IUserRepository
     /// Начинает транзакцию.
     /// </summary>
     /// <returns>Транзакция.</returns>
-    Transaction BeginTransaction();
+    ITransaction BeginTransaction();
     
     /// <summary>
     /// Проверяет, существует ли пользователь с данным id.

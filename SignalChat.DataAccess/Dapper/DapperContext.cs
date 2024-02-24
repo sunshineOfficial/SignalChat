@@ -35,17 +35,17 @@ public class DapperContext<TSettings> : IDapperContext<TSettings> where TSetting
         return (await Execute(query => query.QueryAsync<T>(queryObject.Sql, queryObject.Params, commandTimeout: queryObject.CommandTimeout)).ConfigureAwait(false)).AsList();
     }
 
-    public async Task Command(IQueryObject queryObject, Transaction transaction = null)
+    public async Task Command(IQueryObject queryObject, ITransaction transaction = null)
     {
         await (transaction == null ? CommandExecute(queryObject) : transaction.Command(queryObject));
     }
 
-    public async Task<T> CommandWithResponse<T>(IQueryObject queryObject, Transaction transaction = null)
+    public async Task<T> CommandWithResponse<T>(IQueryObject queryObject, ITransaction transaction = null)
     {
         return await (transaction == null ? CommandWithResponseExecute<T>(queryObject) : transaction.CommandWithResponse<T>(queryObject));
     }
 
-    public Transaction BeginTransaction()
+    public ITransaction BeginTransaction()
     {
         return new Transaction(_connectionString, _provider);
     }

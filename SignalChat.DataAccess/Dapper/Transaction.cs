@@ -8,7 +8,7 @@ namespace SignalChat.DataAccess.Dapper;
 /// <summary>
 /// Транзакция внутри БД.
 /// </summary>
-public class Transaction : ITransaction, IDisposable
+public class Transaction : ITransaction
 {
     private readonly IDbConnection _connection;
     private readonly IDbTransaction _transaction;

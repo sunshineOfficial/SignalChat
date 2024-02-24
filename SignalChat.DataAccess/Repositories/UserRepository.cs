@@ -1,4 +1,3 @@
-using SignalChat.DataAccess.Dapper;
 using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Dapper.Models;
 using SignalChat.DataAccess.Models;
@@ -12,7 +11,7 @@ namespace SignalChat.DataAccess.Repositories;
 /// </summary>
 public class UserRepository(IDapperContext<IDapperSettings> dapperContext) : IUserRepository
 {
-    public Transaction BeginTransaction()
+    public ITransaction BeginTransaction()
     {
         return dapperContext.BeginTransaction();
     }

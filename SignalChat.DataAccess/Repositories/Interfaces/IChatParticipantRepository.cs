@@ -1,4 +1,4 @@
-using SignalChat.DataAccess.Dapper;
+using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models;
 
 namespace SignalChat.DataAccess.Repositories.Interfaces;
@@ -12,21 +12,21 @@ public interface IChatParticipantRepository
     /// Начинает транзакцию.
     /// </summary>
     /// <returns>Транзакция.</returns>
-    Transaction BeginTransaction();
+    ITransaction BeginTransaction();
 
     /// <summary>
     /// Создает нового участника чата.
     /// </summary>
     /// <param name="chatParticipant">Новый участник чата.</param>
     /// <param name="transaction">Транзакция.</param>
-    Task CreateChatParticipant(DbChatParticipant chatParticipant, Transaction transaction = null);
+    Task CreateChatParticipant(DbChatParticipant chatParticipant, ITransaction transaction = null);
     
     /// <summary>
     /// Создает новых участников чата.
     /// </summary>
     /// <param name="chatParticipants">Новые участники чата.</param>
     /// <param name="transaction">Транзакция.</param>
-    Task CreateChatParticipants(List<DbChatParticipant> chatParticipants, Transaction transaction = null);
+    Task CreateChatParticipants(List<DbChatParticipant> chatParticipants, ITransaction transaction = null);
     
     /// <summary>
     /// Проверяет, существует ли участник чата с данными id.

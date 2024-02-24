@@ -1,4 +1,3 @@
-using SignalChat.DataAccess.Dapper;
 using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Dapper.Models;
 using SignalChat.DataAccess.Models;
@@ -12,17 +11,17 @@ namespace SignalChat.DataAccess.Repositories;
 /// </summary>
 public class ChatParticipantRepository(IDapperContext<IDapperSettings> dapperContext) : IChatParticipantRepository
 {
-    public Transaction BeginTransaction()
+    public ITransaction BeginTransaction()
     {
         return dapperContext.BeginTransaction();
     }
 
-    public async Task CreateChatParticipant(DbChatParticipant chatParticipant, Transaction transaction = null)
+    public async Task CreateChatParticipant(DbChatParticipant chatParticipant, ITransaction transaction = null)
     {
         await dapperContext.Command(new QueryObject(Sql.CreateChatParticipant, chatParticipant), transaction);
     }
 
-    public async Task CreateChatParticipants(List<DbChatParticipant> chatParticipants, Transaction transaction = null)
+    public async Task CreateChatParticipants(List<DbChatParticipant> chatParticipants, ITransaction transaction = null)
     {
         await dapperContext.Command(new QueryObject(Sql.CreateChatParticipant, chatParticipants), transaction);
     }

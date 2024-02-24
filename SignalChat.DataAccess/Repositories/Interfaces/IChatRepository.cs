@@ -1,4 +1,4 @@
-using SignalChat.DataAccess.Dapper;
+using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models;
 
 namespace SignalChat.DataAccess.Repositories.Interfaces;
@@ -12,7 +12,7 @@ public interface IChatRepository
     /// Начинает транзакцию.
     /// </summary>
     /// <returns>Транзакция.</returns>
-    Transaction BeginTransaction();
+    ITransaction BeginTransaction();
     
     /// <summary>
     /// Создает новый чат.
@@ -20,7 +20,7 @@ public interface IChatRepository
     /// <param name="chat">Новый чат.</param>
     /// <param name="transaction">Транзакция.</param>
     /// <returns>Id нового чата.</returns>
-    Task<int> CreateChat(DbChat chat, Transaction transaction = null);
+    Task<int> CreateChat(DbChat chat, ITransaction transaction = null);
 
     /// <summary>
     /// Проверяет, существует ли чат с данным id.

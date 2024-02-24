@@ -3,7 +3,7 @@ namespace SignalChat.DataAccess.Dapper.Interfaces;
 /// <summary>
 /// Интерфейс транзакции внутри БД.
 /// </summary>
-public interface ITransaction
+public interface ITransaction : IDisposable
 {
     /// <summary>
     /// Выполняет команду к БД в рамках транзакции и возвращает ответ.

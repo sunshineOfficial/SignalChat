@@ -1,4 +1,4 @@
-using SignalChat.DataAccess.Dapper;
+using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models;
 
 namespace SignalChat.DataAccess.Repositories.Interfaces;
@@ -12,7 +12,7 @@ public interface IMessageRepository
     /// Начинает транзакцию.
     /// </summary>
     /// <returns>Транзакция.</returns>
-    Transaction BeginTransaction();
+    ITransaction BeginTransaction();
     
     /// <summary>
     /// Создает новое сообщение.

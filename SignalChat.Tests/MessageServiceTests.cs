@@ -48,7 +48,7 @@ public class MessageServiceTests
         SendMessageRequest request,
         MessageService messageService)
     {
-        // Assert
+        // Arrange
         chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(false);
         
         // Act
@@ -68,12 +68,81 @@ public class MessageServiceTests
         SendMessageRequest request,
         MessageService messageService)
     {
-        // Assert
+        // Arrange
         chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(true);
         chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(request.UserId, request.ChatId)).ReturnsAsync(false);
         
         // Act
         var act = () => messageService.SendMessage(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<ChatParticipantNotFoundException>(act);
+    }
+
+    /// <summary>
+    /// Проверяет, что при валидном запросе возвращаются сообщения.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task GetMessagesByChat_ValidRequest_Success(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        [Frozen] Mock<IMessageRepository> messageRepositoryMock,
+        int userId,
+        int chatId,
+        DateTime from,
+        MessageService messageService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(chatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(userId, chatId)).ReturnsAsync(true);
+        
+        // Act
+        var messages = await messageService.GetMessagesByChat(userId, chatId, from);
+        
+        // Assert
+        Assert.NotNull(messages);
+        messageRepositoryMock.Verify(x => x.GetMessagesByChat(chatId, from), Times.Once);
+    }
+
+    /// <summary>
+    /// Проверяет, что при невалидном Id чата выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task GetMessagesByChat_InvalidChatId_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        int userId,
+        int chatId,
+        DateTime from,
+        MessageService messageService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(chatId)).ReturnsAsync(false);
+        
+        // Act
+        var act = () => messageService.GetMessagesByChat(userId, chatId, from);
+        
+        // Assert
+        await Assert.ThrowsAsync<ChatNotFoundException>(act);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при невалидном участнике чата выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task GetMessagesByChat_InvalidChatParticipant_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        int userId,
+        int chatId,
+        DateTime from,
+        MessageService messageService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(chatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(userId, chatId)).ReturnsAsync(false);
+        
+        // Act
+        var act = () => messageService.GetMessagesByChat(userId, chatId, from);
         
         // Assert
         await Assert.ThrowsAsync<ChatParticipantNotFoundException>(act);

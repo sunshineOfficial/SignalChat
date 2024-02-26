@@ -4,6 +4,7 @@ using SignalChat.DataAccess.Models;
 using SignalChat.DataAccess.Repositories.Interfaces;
 using SignalChat.Models.Auth;
 using SignalChat.Models.Auth.Interfaces;
+using SignalChat.Models.User;
 using SignalChat.Services.Exceptions;
 using SignalChat.Services.Interfaces;
 
@@ -29,6 +30,7 @@ public class AuthService(IUserRepository userRepository, ITokenService tokenServ
         var refreshToken = tokenService.CreateToken(new List<Claim>());
         var id = await userRepository.CreateUser(new DbUser
         {
+            Role = (int)Role.User,
             Username = registerModel.Username,
             Email = registerModel.Email,
             Name = registerModel.Name,
@@ -38,7 +40,7 @@ public class AuthService(IUserRepository userRepository, ITokenService tokenServ
             RefreshTokenExpiredAfter = DateTime.UtcNow.AddHours(authSettings.TokenExpiresAfterHours)
         });
 
-        var claims = Jwt.GetClaims(id, registerModel.Email, registerModel.Username);
+        var claims = Jwt.GetClaims(id, (int)Role.User, registerModel.Email, registerModel.Username);
         var accessToken = tokenService.CreateToken(claims, 24);
 
         return new AuthResponse
@@ -56,7 +58,7 @@ public class AuthService(IUserRepository userRepository, ITokenService tokenServ
             throw new BadCredentialsException();
         }
 
-        var claims = Jwt.GetClaims(user.Id, user.Email, user.Username);
+        var claims = Jwt.GetClaims(user.Id, user.Role, user.Email, user.Username);
         var accessToken = tokenService.CreateToken(claims, 24);
 
         return new AuthResponse

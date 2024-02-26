@@ -39,7 +39,7 @@ public class TokenService(IAuthSettings authSettings, IUserRepository userReposi
             throw new RefreshTokenNotFoundException();
         }
 
-        var claims = Jwt.GetClaims(user.Id, user.Email, user.Username);
+        var claims = Jwt.GetClaims(user.Id, user.Role, user.Email, user.Username);
         var newRefreshToken = CreateToken(new List<Claim>());
         var newAccessToken = CreateToken(claims, 24);
 

@@ -9,6 +9,11 @@ public class DbUser
     /// Id пользователя.
     /// </summary>
     public int Id { get; set; }
+
+    /// <summary>
+    /// Роль пользователя.
+    /// </summary>
+    public int Role { get; set; }
     
     /// <summary>
     /// Логин пользователя.

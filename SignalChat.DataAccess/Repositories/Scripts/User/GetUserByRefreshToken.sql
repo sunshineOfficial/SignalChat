@@ -1,4 +1,5 @@
 select id                          as Id,
+       role                        as Role,
        username                    as Username,
        email                       as Email,
        name                        as Name,

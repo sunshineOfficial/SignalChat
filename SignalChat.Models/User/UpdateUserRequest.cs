@@ -1,19 +1,17 @@
+using System.Text.Json.Serialization;
+
 namespace SignalChat.Models.User;
 
 /// <summary>
-/// Модель пользователя.
+/// Модель запроса на обновление данных пользователя.
 /// </summary>
-public class User
+public class UpdateUserRequest
 {
     /// <summary>
     /// Id пользователя.
     /// </summary>
+    [JsonIgnore]
     public int Id { get; set; }
-
-    /// <summary>
-    /// Роль пользователя.
-    /// </summary>
-    public Role Role { get; set; }
     
     /// <summary>
     /// Логин пользователя.

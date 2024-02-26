@@ -29,24 +29,24 @@ public class UserService(IUserRepository userRepository) : IUserService
         return users.MapToDomain();
     }
 
-    public async Task UpdateUser(User user)
+    public async Task UpdateUser(UpdateUserRequest request)
     {
-        if (!await userRepository.IsUserExistsById(user.Id))
+        if (!await userRepository.IsUserExistsById(request.Id))
         {
-            throw new UserNotFoundException(user.Id);
+            throw new UserNotFoundException(request.Id);
         }
 
-        if (!string.IsNullOrEmpty(user.Username) && await userRepository.IsUserExistsByUsername(user.Username))
+        if (!string.IsNullOrEmpty(request.Username) && await userRepository.IsUserExistsByUsername(request.Username))
         {
-            throw new UsernameAlreadyTakenException(user.Username);
+            throw new UsernameAlreadyTakenException(request.Username);
         }
 
-        if (!string.IsNullOrEmpty(user.Email) && await userRepository.IsUserExistsByEmail(user.Email))
+        if (!string.IsNullOrEmpty(request.Email) && await userRepository.IsUserExistsByEmail(request.Email))
         {
-            throw new EmailAlreadyTakenException(user.Email);
+            throw new EmailAlreadyTakenException(request.Email);
         }
 
-        await userRepository.UpdateUser(user.MapToDb());
+        await userRepository.UpdateUser(request.MapToDb());
     }
 
     public async Task DeleteUser(int id)

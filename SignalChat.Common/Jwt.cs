@@ -19,6 +19,16 @@ public static class Jwt
     }
     
     /// <summary>
+    /// Получает роль пользователя из токена.
+    /// </summary>
+    /// <param name="token">Токен.</param>
+    /// <returns>Роль пользователя.</returns>
+    public static string GetRole(string token)
+    {
+        return ParseToken(token, "role");
+    }
+    
+    /// <summary>
     /// Получает почту пользователя из токена.
     /// </summary>
     /// <param name="token">Токен.</param>
@@ -42,14 +52,16 @@ public static class Jwt
     /// Получает список <see cref="Claim"/>.
     /// </summary>
     /// <param name="id">Id пользователя.</param>
+    /// <param name="role">Роль пользователя.</param>
     /// <param name="email">Почта пользователя.</param>
     /// <param name="username">Логин пользователя.</param>
     /// <returns>Список <see cref="Claim"/>.</returns>
-    public static List<Claim> GetClaims(int id, string email, string username)
+    public static List<Claim> GetClaims(int id, int role, string email, string username)
     {
         return
         [
             new Claim("userId", id.ToString()),
+            new Claim("role", role.ToString()),
             new Claim("email", email),
             new Claim("username", username)
         ];

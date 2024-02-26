@@ -44,12 +44,12 @@ public class UserController(IUserService userService) : BaseController
     /// <summary>
     /// Обновляет информацию о текущем пользователе.
     /// </summary>
-    /// <param name="user">Новая информация о текущем пользователе.</param>
+    /// <param name="request">Новая информация о текущем пользователе.</param>
     [HttpPut("me")]
-    public async Task<IActionResult> UpdateMe(User user)
+    public async Task<IActionResult> UpdateMe(UpdateUserRequest request)
     {
-        user.Id = Id;
-        await userService.UpdateUser(user);
+        request.Id = Id;
+        await userService.UpdateUser(request);
         
         return Ok();
     }

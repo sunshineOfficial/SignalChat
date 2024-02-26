@@ -1,8 +1,8 @@
 create table if not exists messages
 (
-    id      integer primary key generated always as identity,
+    id      serial primary key,
     text    text,
     sent_on timestamp,
-    chat_id integer references chats (id),
-    user_id integer references users (id)
+    chat_id int references chats (id),
+    user_id int references users (id)
 );

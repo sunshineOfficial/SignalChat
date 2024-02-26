@@ -1,6 +1,7 @@
 create table if not exists users
 (
-    id                          integer primary key generated always as identity,
+    id                          serial primary key,
+    role                        int         not null default 0,
     username                    text unique not null,
     email                       text unique not null,
     name                        text,

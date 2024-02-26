@@ -23,8 +23,8 @@ public interface IUserService
     /// <summary>
     /// Обновляет информацию о пользователе.
     /// </summary>
-    /// <param name="user">Новая информация о пользователе.</param>
-    Task UpdateUser(User user);
+    /// <param name="request">Новая информация о пользователе.</param>
+    Task UpdateUser(UpdateUserRequest request);
 
     /// <summary>
     /// Удаляет пользователя.

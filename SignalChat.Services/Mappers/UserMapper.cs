@@ -20,6 +20,7 @@ public static class UserMapper
             : new User
             {
                 Id = source.Id,
+                Role = (Role)source.Role,
                 Username = source.Username,
                 Email = source.Email,
                 Name = source.Name,
@@ -43,6 +44,26 @@ public static class UserMapper
     /// <param name="source"><see cref="User"/>.</param>
     /// <returns><see cref="DbUser"/>.</returns>
     public static DbUser MapToDb(this User source)
+    {
+        return source == null
+            ? default
+            : new DbUser
+            {
+                Id = source.Id,
+                Role = (int)source.Role,
+                Username = source.Username,
+                Email = source.Email,
+                Name = source.Name,
+                Surname = source.Surname
+            };
+    }
+    
+    /// <summary>
+    /// Маппит <see cref="UpdateUserRequest"/> на <see cref="DbUser"/>.
+    /// </summary>
+    /// <param name="source"><see cref="UpdateUserRequest"/>.</param>
+    /// <returns><see cref="DbUser"/>.</returns>
+    public static DbUser MapToDb(this UpdateUserRequest source)
     {
         return source == null
             ? default

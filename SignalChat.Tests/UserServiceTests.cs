@@ -58,16 +58,16 @@ public class UserServiceTests
     [Theory, AutoMoqData]
     public async Task UpdateUser_ValidUser_Success(
         [Frozen] Mock<IUserRepository> userRepositoryMock,
-        User user,
+        UpdateUserRequest request,
         UserService userService)
     {
         // Arrange
-        userRepositoryMock.Setup(x => x.IsUserExistsById(user.Id)).ReturnsAsync(true);
-        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(user.Username)).ReturnsAsync(false);
-        userRepositoryMock.Setup(x => x.IsUserExistsByEmail(user.Email)).ReturnsAsync(false);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(request.Id)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(request.Username)).ReturnsAsync(false);
+        userRepositoryMock.Setup(x => x.IsUserExistsByEmail(request.Email)).ReturnsAsync(false);
         
         // Act
-        await userService.UpdateUser(user);
+        await userService.UpdateUser(request);
         
         // Assert
         userRepositoryMock.Verify(x => x.UpdateUser(It.IsAny<DbUser>()), Times.Once);
@@ -79,14 +79,14 @@ public class UserServiceTests
     [Theory, AutoMoqData]
     public async Task UpdateUser_InvalidId_ThrowsException(
         [Frozen] Mock<IUserRepository> userRepositoryMock,
-        User user,
+        UpdateUserRequest request,
         UserService userService)
     {
         // Arrange
-        userRepositoryMock.Setup(x => x.IsUserExistsById(user.Id)).ReturnsAsync(false);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(request.Id)).ReturnsAsync(false);
         
         // Act
-        var act = () => userService.UpdateUser(user);
+        var act = () => userService.UpdateUser(request);
         
         // Assert
         await Assert.ThrowsAsync<UserNotFoundException>(act);
@@ -98,15 +98,15 @@ public class UserServiceTests
     [Theory, AutoMoqData]
     public async Task UpdateUser_InvalidUsername_ThrowsException(
         [Frozen] Mock<IUserRepository> userRepositoryMock,
-        User user,
+        UpdateUserRequest request,
         UserService userService)
     {
         // Arrange
-        userRepositoryMock.Setup(x => x.IsUserExistsById(user.Id)).ReturnsAsync(true);
-        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(user.Username)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(request.Id)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(request.Username)).ReturnsAsync(true);
         
         // Act
-        var act = () => userService.UpdateUser(user);
+        var act = () => userService.UpdateUser(request);
         
         // Assert
         await Assert.ThrowsAsync<UsernameAlreadyTakenException>(act);
@@ -118,16 +118,16 @@ public class UserServiceTests
     [Theory, AutoMoqData]
     public async Task UpdateUser_InvalidEmail_ThrowsException(
         [Frozen] Mock<IUserRepository> userRepositoryMock,
-        User user,
+        UpdateUserRequest request,
         UserService userService)
     {
         // Arrange
-        userRepositoryMock.Setup(x => x.IsUserExistsById(user.Id)).ReturnsAsync(true);
-        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(user.Username)).ReturnsAsync(false);
-        userRepositoryMock.Setup(x => x.IsUserExistsByEmail(user.Email)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(request.Id)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsByUsername(request.Username)).ReturnsAsync(false);
+        userRepositoryMock.Setup(x => x.IsUserExistsByEmail(request.Email)).ReturnsAsync(true);
         
         // Act
-        var act = () => userService.UpdateUser(user);
+        var act = () => userService.UpdateUser(request);
         
         // Assert
         await Assert.ThrowsAsync<EmailAlreadyTakenException>(act);

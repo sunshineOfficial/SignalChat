@@ -99,9 +99,9 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
             }
         }
         
-        internal static string GetUserByEmailAndPassword {
+        internal static string GetUserByLoginAndPassword {
             get {
-                return ResourceManager.GetString("GetUserByEmailAndPassword", resourceCulture);
+                return ResourceManager.GetString("GetUserByLoginAndPassword", resourceCulture);
             }
         }
         

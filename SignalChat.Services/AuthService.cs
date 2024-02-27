@@ -52,7 +52,7 @@ public class AuthService(IUserRepository userRepository, ITokenService tokenServ
 
     public async Task<AuthResponse> Login(LoginModel loginModel)
     {
-        var user = await userRepository.GetUser(loginModel.Email, Hash.GetHash(loginModel.Password));
+        var user = await userRepository.GetUser(loginModel.Login, Hash.GetHash(loginModel.Password));
         if (user == null)
         {
             throw new BadCredentialsException();

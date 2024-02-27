@@ -145,8 +145,8 @@
   <data name="DeleteUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>User\DeleteUser.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="GetUserByEmailAndPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>User\GetUserByEmailAndPassword.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  <data name="GetUserByLoginAndPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>User\GetUserByLoginAndPassword.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="GetUserById" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>User\GetUserById.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>

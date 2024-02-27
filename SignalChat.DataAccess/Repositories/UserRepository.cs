@@ -41,9 +41,9 @@ public class UserRepository(IDapperContext<IDapperSettings> dapperContext) : IUs
         return await dapperContext.FirstOrDefault<DbUser>(new QueryObject(Sql.GetUserById, new { id }));
     }
 
-    public async Task<DbUser> GetUser(string email, string passwordHash)
+    public async Task<DbUser> GetUser(string login, string passwordHash)
     {
-        return await dapperContext.FirstOrDefault<DbUser>(new QueryObject(Sql.GetUserByEmailAndPassword, new { email, passwordHash }));
+        return await dapperContext.FirstOrDefault<DbUser>(new QueryObject(Sql.GetUserByLoginAndPassword, new { login, passwordHash }));
     }
 
     public async Task<DbUser> GetUserByRefreshToken(string refreshToken)

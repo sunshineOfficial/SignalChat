@@ -52,10 +52,10 @@ public interface IUserRepository
     /// <summary>
     /// Получает пользователя по его почте и паролю.
     /// </summary>
-    /// <param name="email">Почта пользователя.</param>
+    /// <param name="login">Логин или почта пользователя.</param>
     /// <param name="passwordHash">Пароль пользователя.</param>
     /// <returns>Пользователь или null, если пользователь с указанными данными не найден.</returns>
-    Task<DbUser> GetUser(string email, string passwordHash);
+    Task<DbUser> GetUser(string login, string passwordHash);
 
     /// <summary>
     /// Получает пользователя по RefreshToken.

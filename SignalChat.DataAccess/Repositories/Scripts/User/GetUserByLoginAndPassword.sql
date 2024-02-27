@@ -8,5 +8,5 @@ select id                          as Id,
        refresh_token               as RefreshToken,
        refresh_token_expired_after as RefreshTokenExpiredAfter
 from users
-where email = @email
+where (email = @login or username = @login)
   and password_hash = @passwordHash;

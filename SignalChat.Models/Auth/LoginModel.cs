@@ -6,9 +6,9 @@ namespace SignalChat.Models.Auth;
 public class LoginModel
 {
     /// <summary>
-    /// Почта пользователя.
+    /// Логин или почта пользователя.
     /// </summary>
-    public string Email { get; set; }
+    public string Login { get; set; }
     
     /// <summary>
     /// Пароль пользователя.

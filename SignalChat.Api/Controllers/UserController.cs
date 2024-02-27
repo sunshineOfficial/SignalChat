@@ -64,4 +64,21 @@ public class UserController(IUserService userService) : BaseController
         
         return Ok();
     }
+
+    /// <summary>
+    /// Удаляет пользователя.
+    /// </summary>
+    /// <param name="id">Id пользователя.</param>
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        if (Role != Role.Admin)
+        {
+            return Forbid();
+        }
+
+        await userService.DeleteUser(id);
+
+        return Ok();
+    }
 }

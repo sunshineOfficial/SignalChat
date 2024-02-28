@@ -28,4 +28,26 @@ public interface IMessageRepository
     /// <param name="from">Дата, с которой нужно получить сообщения.</param>
     /// <returns>Список сообщений.</returns>
     Task<List<DbMessage>> GetMessagesByChat(int chatId, DateTime from);
+
+    /// <summary>
+    /// Получает сообщение по его id.
+    /// </summary>
+    /// <param name="id">Id сообщения.</param>
+    /// <returns>Сообщение.</returns>
+    Task<DbMessage> GetMessageById(int id);
+
+    /// <summary>
+    /// Проверяет, существует ли сообщение с данным id.
+    /// </summary>
+    /// <param name="id">Id сообщения.</param>
+    /// <returns>True, если сообщение существует, иначе - False.</returns>
+    Task<bool> IsMessageExists(int id);
+
+    /// <summary>
+    /// Редактирует сообщение.
+    /// </summary>
+    /// <param name="id">Id сообщения.</param>
+    /// <param name="editedText">Отредактированный текст сообщения.</param>
+    /// <param name="editedOn">Дата и время редактирования сообщения.</param>
+    Task EditMessage(int id, string editedText, DateTime editedOn);
 }

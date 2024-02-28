@@ -22,4 +22,11 @@ public interface IMessageService
     /// <param name="from">Дата, с которой нужно получить сообщения.</param>
     /// <returns>Список сообщений.</returns>
     Task<List<Message>> GetMessagesByChat(int userId, int chatId, DateTime from);
+
+    /// <summary>
+    /// Редактирует сообщение.
+    /// </summary>
+    /// <param name="request"><see cref="EditMessageRequest"/>.</param>
+    /// <returns><see cref="Message"/>.</returns>
+    Task<Message> EditMessage(EditMessageRequest request);
 }

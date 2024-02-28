@@ -29,4 +29,9 @@ public class DbMessage
     /// Id пользователя.
     /// </summary>
     public int UserId { get; set; }
+
+    /// <summary>
+    /// Дата и время редактирования сообщения.
+    /// </summary>
+    public DateTime? EditedOn { get; set; }
 }

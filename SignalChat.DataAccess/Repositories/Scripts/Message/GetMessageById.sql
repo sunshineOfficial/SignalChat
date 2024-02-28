@@ -5,6 +5,4 @@ select id        as Id,
        user_id   as UserId,
        edited_on as EditedOn
 from messages
-where chat_id = @chatId
-  and sent_on >= @from
-order by sent_on;
+where id = @id;

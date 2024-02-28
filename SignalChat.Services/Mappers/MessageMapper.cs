@@ -41,7 +41,8 @@ public static class MessageMapper
                 Text = source.Text,
                 SentOn = source.SentOn,
                 ChatId = source.ChatId,
-                UserId = source.UserId
+                UserId = source.UserId,
+                EditedOn = source.EditedOn
             };
     }
     
@@ -53,5 +54,27 @@ public static class MessageMapper
     public static List<Message> MapToDomain(this List<DbMessage> source)
     {
         return source == null ? [] : source.Select(x => x.MapToDomain()).ToList();
+    }
+
+    /// <summary>
+    /// Маппит <see cref="EditMessageRequest"/> на <see cref="Message"/>.
+    /// </summary>
+    /// <param name="source"><see cref="EditMessageRequest"/>.</param>
+    /// <param name="sentOn">Дата и время отправки сообщения.</param>
+    /// <param name="chatId">Id чата.</param>
+    /// <returns><see cref="Message"/>.</returns>
+    public static Message MapToDomain(this EditMessageRequest source, DateTime sentOn, int chatId)
+    {
+        return source == null
+            ? default
+            : new Message
+            {
+                Id = source.Id,
+                Text = source.EditedText,
+                SentOn = sentOn,
+                ChatId = chatId,
+                UserId = source.UserId,
+                EditedOn = source.EditedOn
+            };
     }
 }

@@ -1,9 +1,11 @@
+using System.Text.Json.Serialization;
+
 namespace SignalChat.Models.Message;
 
 /// <summary>
-/// Модель сообщения.
+/// Модель запроса на редактирование сообщения.
 /// </summary>
-public class Message
+public class EditMessageRequest
 {
     /// <summary>
     /// Id сообщения.
@@ -11,27 +13,19 @@ public class Message
     public int Id { get; set; }
     
     /// <summary>
-    /// Текст сообщения.
+    /// Отредактированный текст сообщения.
     /// </summary>
-    public string Text { get; set; }
-    
-    /// <summary>
-    /// Дата и время отправки сообщения.
-    /// </summary>
-    public DateTime SentOn { get; set; }
-    
-    /// <summary>
-    /// Id чата.
-    /// </summary>
-    public int ChatId { get; set; }
+    public string EditedText { get; set; }
     
     /// <summary>
     /// Id пользователя.
     /// </summary>
+    [JsonIgnore]
     public int UserId { get; set; }
     
     /// <summary>
     /// Дата и время редактирования сообщения.
     /// </summary>
+    [JsonIgnore]
     public DateTime? EditedOn { get; set; }
 }

@@ -21,6 +21,8 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Sql.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <None Remove="Migrations\Resources\0006_Add_message_edited_on.sql" />
+      <EmbeddedResource Include="Migrations\Resources\0006_Add_message_edited_on.sql" />
     </ItemGroup>
 
     <ItemGroup>

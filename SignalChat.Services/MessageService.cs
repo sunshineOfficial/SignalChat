@@ -46,4 +46,24 @@ public class MessageService(IMessageRepository messageRepository, IChatRepositor
 
         return dbMessages.MapToDomain();
     }
+
+    public async Task<Message> EditMessage(EditMessageRequest request)
+    {
+        var message = await messageRepository.GetMessageById(request.Id);
+
+        if (message == null)
+        {
+            throw new MessageNotFoundException(request.Id);
+        }
+
+        if (message.UserId != request.UserId)
+        {
+            throw new EditMessageException();
+        }
+
+        request.EditedOn = DateTime.UtcNow;
+        await messageRepository.EditMessage(request.Id, request.EditedText, request.EditedOn.Value);
+
+        return request.MapToDomain(message.SentOn, message.ChatId);
+    }
 }

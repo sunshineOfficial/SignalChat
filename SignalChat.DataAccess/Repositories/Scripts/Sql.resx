@@ -139,6 +139,15 @@
   <data name="GetMessagesByChat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Message\GetMessagesByChat.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="GetMessageById" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Message\GetMessageById.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="IsMessageExists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Message\IsMessageExists.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="EditMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Message\EditMessage.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="CreateUser" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>User\CreateUser.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>

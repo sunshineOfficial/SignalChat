@@ -53,6 +53,24 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
             throw new HubException(e.Message);
         }
     }
+
+    /// <summary>
+    /// Редактирует сообщение.
+    /// </summary>
+    /// <param name="request"><see cref="EditMessageRequest"/>.</param>
+    public async Task EditMessage(EditMessageRequest request)
+    {
+        try
+        {
+            request.UserId = Id;
+            var editedMessage = await messageService.EditMessage(request);
+            await Clients.Group($"Chat{editedMessage.ChatId}").SendAsync("MessageEdited", editedMessage);
+        }
+        catch (Exception e)
+        {
+            throw new HubException(e.Message);
+        }
+    }
     
     public override async Task OnConnectedAsync()
     {

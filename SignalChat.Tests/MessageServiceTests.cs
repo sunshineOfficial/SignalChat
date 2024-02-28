@@ -36,6 +36,7 @@ public class MessageServiceTests
         Assert.Equal(request.Text, message.Text);
         Assert.Equal(request.ChatId, message.ChatId);
         Assert.Equal(request.UserId, message.UserId);
+        Assert.Null(message.EditedOn);
         messageRepositoryMock.Verify(x => x.CreateMessage(It.IsAny<DbMessage>()), Times.Once);
     }
 
@@ -146,5 +147,72 @@ public class MessageServiceTests
         
         // Assert
         await Assert.ThrowsAsync<ChatParticipantNotFoundException>(act);
+    }
+
+    /// <summary>
+    /// Проверяет, что при валидном запросе сообщение редактируется.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task EditMessage_ValidRequest_Success(
+        [Frozen] Mock<IMessageRepository> messageRepositoryMock,
+        EditMessageRequest request,
+        DbMessage dbMessage,
+        MessageService messageService)
+    {
+        // Arrange
+        dbMessage.UserId = request.UserId;
+        messageRepositoryMock.Setup(x => x.GetMessageById(request.Id)).ReturnsAsync(dbMessage);
+        
+        // Act
+        var editedMessage = await messageService.EditMessage(request);
+        
+        // Assert
+        Assert.Equal(request.Id, editedMessage.Id);
+        Assert.Equal(request.EditedText, editedMessage.Text);
+        Assert.Equal(dbMessage.SentOn, editedMessage.SentOn);
+        Assert.Equal(dbMessage.ChatId, editedMessage.ChatId);
+        Assert.Equal(request.UserId, editedMessage.UserId);
+        messageRepositoryMock.Verify(x => x.EditMessage(request.Id, request.EditedText, It.IsAny<DateTime>()), Times.Once);
+    }
+
+    /// <summary>
+    /// Проверяет, что при невалидном Id сообщения выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task EditMessage_InvalidId_ThrowsException(
+        [Frozen] Mock<IMessageRepository> messageRepositoryMock,
+        EditMessageRequest request,
+        MessageService messageService)
+    {
+        // Arrange
+        messageRepositoryMock.Setup(x => x.GetMessageById(request.Id)).ReturnsAsync(() => null);
+        
+        // Act
+        var act = () => messageService.EditMessage(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<MessageNotFoundException>(act);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при попытке отредактировать чужое сообщение выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task EditMessage_InvalidUserId_ThrowsException(
+        [Frozen] Mock<IMessageRepository> messageRepositoryMock,
+        EditMessageRequest request,
+        DbMessage dbMessage,
+        MessageService messageService)
+    {
+        // Arrange
+        request.UserId = 1;
+        dbMessage.UserId = 2;
+        messageRepositoryMock.Setup(x => x.GetMessageById(request.Id)).ReturnsAsync(dbMessage);
+        
+        // Act
+        var act = () => messageService.EditMessage(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<EditMessageException>(act);
     }
 }

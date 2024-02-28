@@ -25,4 +25,19 @@ public class MessageRepository(IDapperContext<IDapperSettings> dapperContext) : 
     {
         return await dapperContext.ListOrEmpty<DbMessage>(new QueryObject(Sql.GetMessagesByChat, new { chatId, from }));
     }
+
+    public async Task<DbMessage> GetMessageById(int id)
+    {
+        return await dapperContext.FirstOrDefault<DbMessage>(new QueryObject(Sql.GetMessageById, new { id }));
+    }
+
+    public async Task<bool> IsMessageExists(int id)
+    {
+        return await dapperContext.FirstOrDefault<bool>(new QueryObject(Sql.IsMessageExists, new { id }));
+    }
+
+    public async Task EditMessage(int id, string editedText, DateTime editedOn)
+    {
+        await dapperContext.Command(new QueryObject(Sql.EditMessage, new { id, editedText, editedOn }));
+    }
 }

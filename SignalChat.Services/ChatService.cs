@@ -49,4 +49,11 @@ public class ChatService(IChatRepository chatRepository, IUserRepository userRep
             throw;
         }
     }
+
+    public async Task<List<Chat>> GetChatsByUserId(int userId)
+    {
+        var dbChats = await chatRepository.GetChatsByUserId(userId);
+
+        return dbChats.MapToDomain();
+    }
 }

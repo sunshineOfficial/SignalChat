@@ -124,6 +124,9 @@
   <data name="IsChatExists" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Chat\IsChatExists.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="GetChatsByUserId" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Chat\GetChatsByUserId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="CreateChatParticipant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ChatParticipant\CreateChatParticipant.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>

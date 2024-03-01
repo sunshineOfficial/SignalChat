@@ -40,4 +40,14 @@ public static class ChatMapper
                 CreatorId = source.CreatorId
             };
     }
+    
+    /// <summary>
+    /// Маппит список <see cref="DbChat"/> на список <see cref="Chat"/>.
+    /// </summary>
+    /// <param name="source">Список <see cref="DbChat"/>.</param>
+    /// <returns>Список <see cref="Chat"/>.</returns>
+    public static List<Chat> MapToDomain(this List<DbChat> source)
+    {
+        return source == null ? [] : source.Select(x => x.MapToDomain()).ToList();
+    }
 }

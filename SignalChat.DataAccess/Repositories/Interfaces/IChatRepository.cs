@@ -28,4 +28,11 @@ public interface IChatRepository
     /// <param name="id">Id чата.</param>
     /// <returns>True, если чат существует, иначе - False.</returns>
     Task<bool> IsChatExists(int id);
+
+    /// <summary>
+    /// Получает чаты по id пользователя.
+    /// </summary>
+    /// <param name="userId">Id пользователя.</param>
+    /// <returns>Список чатов, в которых состоит пользователь.</returns>
+    Task<List<DbChat>> GetChatsByUserId(int userId);
 }

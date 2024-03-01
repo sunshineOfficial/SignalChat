@@ -13,4 +13,11 @@ public interface IChatService
     /// <param name="request">Новый чат.</param>
     /// <returns>Id нового чата.</returns>
     Task<Chat> CreateChat(CreateChatRequest request);
+
+    /// <summary>
+    /// Получает чаты по id пользователя.
+    /// </summary>
+    /// <param name="userId">Id пользователя.</param>
+    /// <returns>Список чатов, в которых состоит пользователь.</returns>
+    Task<List<Chat>> GetChatsByUserId(int userId);
 }

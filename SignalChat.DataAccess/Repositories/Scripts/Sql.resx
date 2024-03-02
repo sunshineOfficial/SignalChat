@@ -127,6 +127,9 @@
   <data name="GetChatsByUserId" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Chat\GetChatsByUserId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="GetChatById" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Chat\GetChatById.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="CreateChatParticipant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ChatParticipant\CreateChatParticipant.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
@@ -135,6 +138,15 @@
   </data>
   <data name="GetChatParticipantsByUserId" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ChatParticipant\GetChatParticipantsByUserId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="GetChatParticipantsByChatId" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ChatParticipant\GetChatParticipantsByChatId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="GetChatParticipantFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ChatParticipant\GetChatParticipantFull.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="GetChatParticipantsFullByChatId" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ChatParticipant\GetChatParticipantsFullByChatId.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="CreateMessage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Message\CreateMessage.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>

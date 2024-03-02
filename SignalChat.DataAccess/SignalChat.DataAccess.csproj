@@ -40,4 +40,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SignalChat.Models\SignalChat.Models.csproj" />
+    </ItemGroup>
+
 </Project>

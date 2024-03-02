@@ -20,4 +20,11 @@ public interface IChatService
     /// <param name="userId">Id пользователя.</param>
     /// <returns>Список чатов, в которых состоит пользователь.</returns>
     Task<List<Chat>> GetChatsByUserId(int userId);
+    
+    /// <summary>
+    /// Получает подробную информацию о чате.
+    /// </summary>
+    /// <param name="id">Id чата.</param>
+    /// <returns>Подробная информация о чате.</returns>
+    Task<ChatDetails> GetChatDetails(int id);
 }

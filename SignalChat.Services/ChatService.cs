@@ -56,4 +56,16 @@ public class ChatService(IChatRepository chatRepository, IUserRepository userRep
 
         return dbChats.MapToDomain();
     }
+
+    public async Task<ChatDetails> GetChatDetails(int id)
+    {
+        var chatDetails = await chatRepository.GetChatDetails(id);
+
+        if (chatDetails == null)
+        {
+            throw new ChatNotFoundException(id);
+        }
+
+        return chatDetails;
+    }
 }

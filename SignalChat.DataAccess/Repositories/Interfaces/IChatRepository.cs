@@ -1,5 +1,6 @@
 using SignalChat.DataAccess.Dapper.Interfaces;
 using SignalChat.DataAccess.Models;
+using SignalChat.Models.Chat;
 
 namespace SignalChat.DataAccess.Repositories.Interfaces;
 
@@ -35,4 +36,11 @@ public interface IChatRepository
     /// <param name="userId">Id пользователя.</param>
     /// <returns>Список чатов, в которых состоит пользователь.</returns>
     Task<List<DbChat>> GetChatsByUserId(int userId);
+
+    /// <summary>
+    /// Получает подробную информацию о чате.
+    /// </summary>
+    /// <param name="id">Id чата.</param>
+    /// <returns>Подробная информация о чате.</returns>
+    Task<ChatDetails> GetChatDetails(int id);
 }

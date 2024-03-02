@@ -63,6 +63,12 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
             }
         }
         
+        internal static string GetChatById {
+            get {
+                return ResourceManager.GetString("GetChatById", resourceCulture);
+            }
+        }
+        
         internal static string CreateChatParticipant {
             get {
                 return ResourceManager.GetString("CreateChatParticipant", resourceCulture);
@@ -78,6 +84,24 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         internal static string GetChatParticipantsByUserId {
             get {
                 return ResourceManager.GetString("GetChatParticipantsByUserId", resourceCulture);
+            }
+        }
+        
+        internal static string GetChatParticipantsByChatId {
+            get {
+                return ResourceManager.GetString("GetChatParticipantsByChatId", resourceCulture);
+            }
+        }
+        
+        internal static string GetChatParticipantFull {
+            get {
+                return ResourceManager.GetString("GetChatParticipantFull", resourceCulture);
+            }
+        }
+        
+        internal static string GetChatParticipantsFullByChatId {
+            get {
+                return ResourceManager.GetString("GetChatParticipantsFullByChatId", resourceCulture);
             }
         }
         

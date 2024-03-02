@@ -18,4 +18,15 @@ public class ChatController(IChatService chatService) : BaseController
     {
         return Ok(await chatService.GetChatsByUserId(Id));
     }
+
+    /// <summary>
+    /// Получает подробную информацию о чате.
+    /// </summary>
+    /// <param name="id">Id чата.</param>
+    /// <returns>Подробная информация о чате.</returns>
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetChatDetails(int id)
+    {
+        return Ok(await chatService.GetChatDetails(id));
+    }
 }

@@ -76,4 +76,115 @@ public class ChatServiceTests
         // Assert
         await Assert.ThrowsAsync<UserNotFoundException>(act);
     }
+    
+    /// <summary>
+    /// Проверяет, что при валидном запросе пользователи добавляются в чат.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task AddUsersToChat_ValidRequest_Success(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        [Frozen] Mock<IUserRepository> userRepositoryMock,
+        AddUsersToChatRequest request,
+        ChatService chatService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(request.RequestingUserId, request.ChatId)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(It.IsAny<int>())).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(It.IsIn((IEnumerable<int>)request.UserIds), request.ChatId)).ReturnsAsync(false);
+        
+        // Act
+        await chatService.AddUsersToChat(request);
+        
+        // Assert
+        chatParticipantRepositoryMock.Verify(x => x.CreateChatParticipants(It.IsAny<List<DbChatParticipant>>(), It.IsAny<ITransaction>()), Times.Once);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при невалидном Id чата выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task AddUsersToChat_InvalidChatId_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        AddUsersToChatRequest request,
+        ChatService chatService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(false);
+        
+        // Act
+        var act = () => chatService.AddUsersToChat(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<ChatNotFoundException>(act);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при невалидном Id пользователя, отправившего запрос, выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task AddUsersToChat_InvalidRequestingUserId_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        AddUsersToChatRequest request,
+        ChatService chatService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(request.RequestingUserId, request.ChatId)).ReturnsAsync(false);
+        
+        // Act
+        var act = () => chatService.AddUsersToChat(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<ChatParticipantNotFoundException>(act);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при невалидном Id пользователя, добавляемого в чат, выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task AddUsersToChat_InvalidUserId_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        [Frozen] Mock<IUserRepository> userRepositoryMock,
+        AddUsersToChatRequest request,
+        ChatService chatService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(request.RequestingUserId, request.ChatId)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(It.IsAny<int>())).ReturnsAsync(false);
+        
+        // Act
+        var act = () => chatService.AddUsersToChat(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<UserNotFoundException>(act);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при попытке добавления пользователя, который уже есть в чате, выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task AddUsersToChat_UserAlreadyInChat_ThrowsException(
+        [Frozen] Mock<IChatRepository> chatRepositoryMock,
+        [Frozen] Mock<IChatParticipantRepository> chatParticipantRepositoryMock,
+        [Frozen] Mock<IUserRepository> userRepositoryMock,
+        AddUsersToChatRequest request,
+        ChatService chatService)
+    {
+        // Arrange
+        chatRepositoryMock.Setup(x => x.IsChatExists(request.ChatId)).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(request.RequestingUserId, request.ChatId)).ReturnsAsync(true);
+        userRepositoryMock.Setup(x => x.IsUserExistsById(It.IsAny<int>())).ReturnsAsync(true);
+        chatParticipantRepositoryMock.Setup(x => x.IsChatParticipantExists(It.IsIn((IEnumerable<int>)request.UserIds), request.ChatId)).ReturnsAsync(true);
+        
+        // Act
+        var act = () => chatService.AddUsersToChat(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<UserAlreadyInChatException>(act);
+    }
 }

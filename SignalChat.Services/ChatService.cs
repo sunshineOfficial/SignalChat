@@ -68,4 +68,38 @@ public class ChatService(IChatRepository chatRepository, IUserRepository userRep
 
         return chatDetails;
     }
+
+    public async Task AddUsersToChat(AddUsersToChatRequest request)
+    {
+        if (!await chatRepository.IsChatExists(request.ChatId))
+        {
+            throw new ChatNotFoundException(request.ChatId);
+        }
+
+        if (!await chatParticipantRepository.IsChatParticipantExists(request.RequestingUserId, request.ChatId))
+        {
+            throw new ChatParticipantNotFoundException(request.RequestingUserId, request.ChatId);
+        }
+        
+        foreach (var id in request.UserIds)
+        {
+            if (!await userRepository.IsUserExistsById(id))
+            {
+                throw new UserNotFoundException(id);
+            }
+
+            if (await chatParticipantRepository.IsChatParticipantExists(id, request.ChatId))
+            {
+                throw new UserAlreadyInChatException(id, request.ChatId);
+            }
+        }
+        
+        var chatParticipants = request.UserIds.Select(id => new DbChatParticipant
+        {
+            UserId = id,
+            ChatId = request.ChatId,
+            Role = (int)ChatRole.User
+        }).ToList();
+        await chatParticipantRepository.CreateChatParticipants(chatParticipants);
+    }
 }

@@ -28,7 +28,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
             await Task.WhenAll(addToGroupTasks);
 
             await Clients.Caller.SendAsync("ChatCreated", chat);
-            await Clients.Group($"Chat{chat.Id}").SendAsync("AddedToChat", chat);
+            await Clients.Group($"Chat{chat.Id}").SendAsync("AddedToChat", request.UserIds);
         }
         catch (Exception e)
         {
@@ -65,6 +65,29 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
             request.UserId = Id;
             var editedMessage = await messageService.EditMessage(request);
             await Clients.Group($"Chat{editedMessage.ChatId}").SendAsync("MessageEdited", editedMessage);
+        }
+        catch (Exception e)
+        {
+            throw new HubException(e.Message);
+        }
+    }
+
+    /// <summary>
+    /// Добавляет пользователей в чат.
+    /// </summary>
+    /// <param name="request"><see cref="AddUsersToChatRequest"/>.</param>
+    public async Task AddUsersToChat(AddUsersToChatRequest request)
+    {
+        try
+        {
+            request.RequestingUserId = Id;
+            await chatService.AddUsersToChat(request);
+            
+            // добавляем всех подключенных пользователей в группу чата
+            var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds);
+            var addToGroupTasks = connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{request.ChatId}"));
+            await Task.WhenAll(addToGroupTasks);
+            await Clients.Group($"Chat{request.ChatId}").SendAsync("AddedToChat", request.UserIds);
         }
         catch (Exception e)
         {

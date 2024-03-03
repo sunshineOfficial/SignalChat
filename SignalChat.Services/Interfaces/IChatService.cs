@@ -27,4 +27,10 @@ public interface IChatService
     /// <param name="id">Id чата.</param>
     /// <returns>Подробная информация о чате.</returns>
     Task<ChatDetails> GetChatDetails(int id);
+
+    /// <summary>
+    /// Добавляет пользователей в чат.
+    /// </summary>
+    /// <param name="request"><see cref="AddUsersToChatRequest"/>.</param>
+    Task AddUsersToChat(AddUsersToChatRequest request);
 }

@@ -31,4 +31,10 @@ public interface IUserService
     /// </summary>
     /// <param name="id">Id пользователя.</param>
     Task DeleteUser(int id);
+
+    /// <summary>
+    /// Меняет пароль пользователя.
+    /// </summary>
+    /// <param name="request"><see cref="ChangePasswordRequest"/>.</param>
+    Task ChangePassword(ChangePasswordRequest request);
 }

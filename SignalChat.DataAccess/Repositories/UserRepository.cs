@@ -70,4 +70,9 @@ public class UserRepository(IDapperContext<IDapperSettings> dapperContext) : IUs
     {
         await dapperContext.Command(new QueryObject(Sql.DeleteUser, new { id }));
     }
+
+    public async Task ChangePassword(int id, string passwordHash)
+    {
+        await dapperContext.Command(new QueryObject(Sql.ChangePassword, new { id, passwordHash }));
+    }
 }

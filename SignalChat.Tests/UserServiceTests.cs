@@ -1,3 +1,4 @@
+using SignalChat.Common;
 using SignalChat.DataAccess.Models;
 using SignalChat.DataAccess.Repositories.Interfaces;
 using SignalChat.Models.User;
@@ -169,5 +170,44 @@ public class UserServiceTests
         
         // Assert
         await Assert.ThrowsAsync<UserNotFoundException>(act);
+    }
+
+    /// <summary>
+    /// Проверяет, что при валидном запросе пароль меняется.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task ChangePassword_ValidRequest_Success(
+        [Frozen] Mock<IUserRepository> userRepositoryMock,
+        ChangePasswordRequest request,
+        DbUser dbUser,
+        UserService userService)
+    {
+        // Arrange
+        userRepositoryMock.Setup(x => x.GetUser(request.Login, Hash.GetHash(request.OldPassword))).ReturnsAsync(dbUser);
+        
+        // Act
+        await userService.ChangePassword(request);
+        
+        // Assert
+        userRepositoryMock.Verify(x => x.ChangePassword(dbUser.Id, Hash.GetHash(request.NewPassword)), Times.Once);
+    }
+    
+    /// <summary>
+    /// Проверяет, что при невалидном запросе выбрасывается исключение.
+    /// </summary>
+    [Theory, AutoMoqData]
+    public async Task ChangePassword_InvalidRequest_ThrowsException(
+        [Frozen] Mock<IUserRepository> userRepositoryMock,
+        ChangePasswordRequest request,
+        UserService userService)
+    {
+        // Arrange
+        userRepositoryMock.Setup(x => x.GetUser(request.Login, Hash.GetHash(request.OldPassword))).ReturnsAsync(() => null);
+        
+        // Act
+        var act = () => userService.ChangePassword(request);
+        
+        // Assert
+        await Assert.ThrowsAsync<BadCredentialsException>(act);
     }
 }

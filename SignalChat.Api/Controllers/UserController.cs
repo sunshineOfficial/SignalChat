@@ -81,4 +81,17 @@ public class UserController(IUserService userService) : BaseController
 
         return Ok();
     }
+
+    /// <summary>
+    /// Меняет пароль пользователя.
+    /// </summary>
+    /// <param name="request"><see cref="ChangePasswordRequest"/>.</param>
+    [HttpPut("password")]
+    public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+    {
+        request.Login = Username;
+        await userService.ChangePassword(request);
+        
+        return Ok();
+    }
 }

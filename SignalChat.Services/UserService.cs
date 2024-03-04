@@ -1,3 +1,4 @@
+using SignalChat.Common;
 using SignalChat.DataAccess.Repositories.Interfaces;
 using SignalChat.Models.User;
 using SignalChat.Services.Exceptions;
@@ -57,5 +58,17 @@ public class UserService(IUserRepository userRepository) : IUserService
         }
 
         await userRepository.DeleteUser(id);
+    }
+
+    public async Task ChangePassword(ChangePasswordRequest request)
+    {
+        var user = await userRepository.GetUser(request.Login, Hash.GetHash(request.OldPassword));
+
+        if (user == null)
+        {
+            throw new BadCredentialsException();
+        }
+
+        await userRepository.ChangePassword(user.Id, Hash.GetHash(request.NewPassword));
     }
 }

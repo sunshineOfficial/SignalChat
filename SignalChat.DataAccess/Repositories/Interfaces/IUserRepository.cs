@@ -89,4 +89,11 @@ public interface IUserRepository
     /// </summary>
     /// <param name="id">Id пользователя.</param>
     Task DeleteUser(int id);
+    
+    /// <summary>
+    /// Меняет пароль пользователя.
+    /// </summary>
+    /// <param name="id">Id пользователя.</param>
+    /// <param name="passwordHash">Новый пароль пользователя.</param>
+    Task ChangePassword(int id, string passwordHash);
 }

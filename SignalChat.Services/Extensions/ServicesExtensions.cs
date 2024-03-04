@@ -22,6 +22,7 @@ public static class ServicesExtensions
             .AddSingleton<IConnectionTracker, ConnectionTracker>()
             .AddScoped<IChatService, ChatService>()
             .AddScoped<IMessageService, MessageService>()
-            .AddScoped<IChatParticipantService, ChatParticipantService>();
+            .AddScoped<IChatParticipantService, ChatParticipantService>()
+            .AddScoped<IContactService, ContactService>();
     }
 }

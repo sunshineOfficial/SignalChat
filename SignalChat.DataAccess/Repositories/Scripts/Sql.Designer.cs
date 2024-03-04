@@ -93,6 +93,16 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to insert into contacts (user_id, friend_id)
+        ///values (@userId, @friendId);.
+        /// </summary>
+        internal static string CreateContact {
+            get {
+                return ResourceManager.GetString("CreateContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to insert into messages (text, sent_on, chat_id, user_id)
         ///values (@Text, @SentOn, @ChatId, @UserId)
         ///returning id;.
@@ -355,6 +365,18 @@ namespace SignalChat.DataAccess.Repositories.Scripts {
         internal static string IsChatParticipantExists {
             get {
                 return ResourceManager.GetString("IsChatParticipantExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to select exists(select user_id
+        ///              from contacts
+        ///              where user_id = @userId
+        ///                and friend_id = @friendId);.
+        /// </summary>
+        internal static string IsContactExists {
+            get {
+                return ResourceManager.GetString("IsContactExists", resourceCulture);
             }
         }
         

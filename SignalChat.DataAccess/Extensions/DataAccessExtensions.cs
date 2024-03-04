@@ -66,6 +66,7 @@ public static class DataAccessExtensions
             .AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IChatRepository, ChatRepository>()
             .AddScoped<IChatParticipantRepository, ChatParticipantRepository>()
-            .AddScoped<IMessageRepository, MessageRepository>();
+            .AddScoped<IMessageRepository, MessageRepository>()
+            .AddScoped<IContactRepository, ContactRepository>();
     }
 }

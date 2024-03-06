@@ -27,4 +27,11 @@ public interface IContactRepository
     /// <param name="friendId">Id пользователя, добавленного в контакты.</param>
     /// <returns>True, если контакт существует, иначе - False.</returns>
     Task<bool> IsContactExists(int userId, int friendId);
+
+    /// <summary>
+    /// Получает контакты пользователя по его Id.
+    /// </summary>
+    /// <param name="userId">Id пользователя.</param>
+    /// <returns>Список контактов пользователя.</returns>
+    Task<List<DbContact>> GetContactsByUserId(int userId);
 }

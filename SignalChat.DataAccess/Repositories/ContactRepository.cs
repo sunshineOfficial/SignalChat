@@ -25,4 +25,9 @@ public class ContactRepository(IDapperContext<IDapperSettings> dapperContext) : 
     {
         return await dapperContext.FirstOrDefault<bool>(new QueryObject(Sql.IsContactExists, new { userId, friendId }));
     }
+
+    public async Task<List<DbContact>> GetContactsByUserId(int userId)
+    {
+        return await dapperContext.ListOrEmpty<DbContact>(new QueryObject(Sql.GetContactsByUserId, new { userId }));
+    }
 }

@@ -11,15 +11,25 @@ namespace SignalChat.Api.Controllers;
 public class ContactController(IContactService contactService) : BaseController
 {
     /// <summary>
-    /// Добавляет пользователя в контакты.
+    /// Добавляет пользователя в контакты текущего пользователя.
     /// </summary>
     /// <param name="request"><see cref="AddUserToContactsRequest"/>.</param>
-    [HttpPost]
-    public async Task<IActionResult> AddUserToContacts(AddUserToContactsRequest request)
+    [HttpPost("my")]
+    public async Task<IActionResult> AddUserToMyContacts(AddUserToContactsRequest request)
     {
         request.UserId = Id;
         await contactService.AddUserToContacts(request);
         
         return Ok();
+    }
+
+    /// <summary>
+    /// Получает контакты текущего пользователя.
+    /// </summary>
+    /// <returns>Список контактов текущего пользователя.</returns>
+    [HttpGet("my")]
+    public async Task<IActionResult> GetMyContacts()
+    {
+        return Ok(await contactService.GetContactsByUserId(Id));
     }
 }

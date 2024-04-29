@@ -23,7 +23,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
 
             // добавляем всех подключенных пользователей в группу чата
             var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds).Append(Context.ConnectionId);
-            Parallel.ForEach(connectionIds, connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}"));
+            await Task.WhenAll(connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}")));
 
             await Clients.Caller.SendAsync("ChatCreated", chat);
             await Clients.Group($"Chat{chat.Id}").SendAsync("AddedToChat", request.UserIds);
@@ -83,7 +83,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
 
             // добавляем всех подключенных пользователей в группу чата
             var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds);
-            Parallel.ForEach(connectionIds, connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{request.ChatId}"));
+            await Task.WhenAll(connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{request.ChatId}")));
             await Clients.Group($"Chat{request.ChatId}").SendAsync("AddedToChat", request.UserIds);
         }
         catch (Exception e)
@@ -99,7 +99,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
         // подключаемся к группам чатов, в которых мы есть
         var chatParticipants = await chatParticipantService.GetChatParticipantsByUserId(Id);
         var chatIds = chatParticipants.Select(x => x.ChatId);
-        Parallel.ForEach(chatIds, chatId => Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chatId}"));
+        await Task.WhenAll(chatIds.Select(chatId => Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chatId}")));
 
         await base.OnConnectedAsync();
     }

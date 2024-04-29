@@ -22,10 +22,8 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
             var chat = await chatService.CreateChat(request);
 
             // добавляем всех подключенных пользователей в группу чата
-            var addToGroupTasks = new List<Task> { Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chat.Id}") };
-            var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds);
-            addToGroupTasks.AddRange(connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}")));
-            await Task.WhenAll(addToGroupTasks);
+            var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds).Append(Context.ConnectionId);
+            Parallel.ForEach(connectionIds, connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{chat.Id}"));
 
             await Clients.Caller.SendAsync("ChatCreated", chat);
             await Clients.Group($"Chat{chat.Id}").SendAsync("AddedToChat", request.UserIds);
@@ -82,11 +80,10 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
         {
             request.RequestingUserId = Id;
             await chatService.AddUsersToChat(request);
-            
+
             // добавляем всех подключенных пользователей в группу чата
             var connectionIds = connectionTracker.SelectConnectionIds(request.UserIds);
-            var addToGroupTasks = connectionIds.Select(connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{request.ChatId}"));
-            await Task.WhenAll(addToGroupTasks);
+            Parallel.ForEach(connectionIds, connectionId => Groups.AddToGroupAsync(connectionId, $"Chat{request.ChatId}"));
             await Clients.Group($"Chat{request.ChatId}").SendAsync("AddedToChat", request.UserIds);
         }
         catch (Exception e)
@@ -94,7 +91,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
             throw new HubException(e.Message);
         }
     }
-    
+
     public override async Task OnConnectedAsync()
     {
         connectionTracker.TrackConnection(Context.ConnectionId, Id);
@@ -102,8 +99,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
         // подключаемся к группам чатов, в которых мы есть
         var chatParticipants = await chatParticipantService.GetChatParticipantsByUserId(Id);
         var chatIds = chatParticipants.Select(x => x.ChatId);
-        var addToGroupTasks = chatIds.Select(chatId => Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chatId}"));
-        await Task.WhenAll(addToGroupTasks);
+        Parallel.ForEach(chatIds, chatId => Groups.AddToGroupAsync(Context.ConnectionId, $"Chat{chatId}"));
 
         await base.OnConnectedAsync();
     }
@@ -111,7 +107,7 @@ public class ChatHub(IConnectionTracker connectionTracker, IChatService chatServ
     public override async Task OnDisconnectedAsync(Exception exception)
     {
         connectionTracker.UntrackConnection(Context.ConnectionId);
-        
+
         await base.OnDisconnectedAsync(exception);
     }
 }
